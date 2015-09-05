@@ -1,0 +1,28 @@
+body {
+	color: #fff;
+	background-color: #428bca;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.logo {
+	font-family: 'Lily Script One', cursive;
+  font-size: 100px;
+  padding-top: 100px;
+}
+
+.slogan {
+	font-size: 30px;
+}
+
+.nav-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  color: #fff;
+}
+
+.nav-item:hover,
+.nav-item:focus {
+  color: #fff;
+  text-decoration: none;
+}
