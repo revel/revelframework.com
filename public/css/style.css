@@ -1,28 +1,114 @@
-body {
+/*CSS customization for revelframework.com */
+
+a, a:hover {
+	color: #3498db;
+	text-decoration: none;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav>li>a:hover {
+  color: #fff;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.jumbotron {
+	background-color: #18bc9c;
 	color: #fff;
-	background-color: #428bca;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	margin-bottom: 0;
 }
 
-.logo {
-	font-family: 'Lily Script One', cursive;
-  font-size: 100px;
-  padding-top: 100px;
+.footer {
+  background-color: #f5f5f5;
+  font-size: 13px;
+  padding-top: 2%;
+	padding-bottom: 2%;
+}
+.footer .text-muted {
+  margin: 20px 0;
+  color: #7F8E98;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-.slogan {
-	font-size: 30px;
+.footer > .container a {
+	color:inherit;
 }
 
-.nav-item {
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  color: #fff;
+.footer > .container a:hover {
+	color: #3498db;
 }
 
-.nav-item:hover,
-.nav-item:focus {
-  color: #fff;
-  text-decoration: none;
+.footer .credits-note {
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+.footer .revel-version {
+	font-size: 12px;
+}
+
+@media (min-width: 768px) {
+	.navbar {
+    border-radius: 0;
+	}
+
+	.container-fluid {
+    padding-left: 7%;
+    padding-right: 7%;
+	}
+
+	.nav-revel-btn-align {
+		padding-top: 20px;
+	}
+
+	.jumbotron {
+    padding-top: 20px;
+    padding-bottom: 20px;
+	}
+
+}
+
+.release-info {
+	font-size: 20px;
+	margin-top: 80px;
+}
+
+.release-info > .version {
+	font-size: 18px;
+	padding-left: 7px;
+}
+
+.release-info > .min-go-version {
+	font-size: 16px;
+	margin-top: 3px;
+	padding-left: 7px;
+}
+
+.features {
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.features .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.features h2 {
+  font-weight: normal;
+}
+
+.features .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+	text-align: justify;
 }

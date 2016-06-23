@@ -4,13 +4,17 @@
 
 module:testrunner
 
-GET     /                                       App.Index
+GET     /                                       Home.Index
+GET     /quickstart                             QuickStart.Index
+GET     /docs/latest                            Docs.Index
+GET     /docs                                   Docs.Index
+GET     /samples                                Samples.Index
 
-# Ignore favicon requests
-GET     /favicon.ico                            404
+# favicon
+GET     /favicon.png                            Static.Serve("public","img/favicon.png")
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
 
 # Catch all
-*       /:controller/:action                    :controller.:action
+#*       /:controller/:action                    :controller.:action

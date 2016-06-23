@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>Not found</title>
-	</head>
-	<body>
+{{set . "title" "Oops... - Revel Framework"}}
+{{template "header.html" .}}
+
 {{if eq .RunMode "dev"}}
 {{template "errors/404-dev.html" .}}
 {{else}}
-	{{with .Error}}
-	<h1>
-		{{.Title}}
-	</h1>
-	<p>
-		{{.Description}}
-	</p>
-	{{end}}
+<div class="container">
+  <div class="row">
+    <h2>Not Found - Make it more classiy</h2>
+  </div>
+</div>
 {{end}}
-	</body>
-</html>
+
+{{template "footer.html" .}}
