@@ -1,5 +1,7 @@
 /*CSS customization for revelframework.com */
 
+@import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
+
 a, a:hover {
 	color: #3498db;
 	text-decoration: none;
@@ -16,6 +18,19 @@ a, a:hover {
 
 .navbar {
 	margin-bottom: 0;
+}
+
+.revel-name-hdr, .revel-name-banner {
+	font-family: 'Lily Script One', cursive;
+}
+
+.revel-name-hdr {
+	font-size: 1.4em;
+}
+
+.revel-name-banner {
+	font-size: 5.5em;
+	font-weight: bold;
 }
 
 .jumbotron {
@@ -35,8 +50,8 @@ a, a:hover {
   color: #7F8E98;
 }
 .footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 3.3%;
+  padding-left: 3.3%;
 }
 
 .footer > .container a {
@@ -65,6 +80,12 @@ a, a:hover {
     padding-left: 7%;
     padding-right: 7%;
 	}
+
+	.page-container {
+    padding-left: 3.3%;
+    padding-right: 3.3%;
+	}
+
 
 	.nav-revel-btn-align {
 		padding-top: 20px;
@@ -111,4 +132,57 @@ a, a:hover {
   margin-right: 10px;
   margin-left: 10px;
 	text-align: justify;
+}
+
+.user-sidebar {
+  background: #fff;
+  /*text-align: center;*/
+}
+
+.user-side-menu {
+  margin-top: 10%;
+}
+
+.user-side-menu ul li {
+  border-bottom: 1px solid #dce4ec;
+}
+
+.user-side-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.user-side-menu ul li a {
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.user-side-menu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.user-side-menu ul li a:hover {
+  background-color: #f5f5f5; /*#2c3e50;*/
+  color: #2c3e50;
+}
+
+.user-side-menu ul li.active {
+  border-bottom: none;
+}
+
+.user-side-menu ul li.active a {
+  color: #fff;
+  background-color: #2c3e50; /*#f5f5f5;*/ /*#2c3e50;*/
+  font-weight: 600;
+  /*border-left: 3px solid #F39C12;
+  margin-left: -3px;*/
+}
+
+.user-side-menu .user-side-menu-head {
+  padding: 10px 20px 10px 16px;
+  background-color: #18BC9C;
+  color: #fff;
+  border: 0;
+	font-weight: bold;
 }

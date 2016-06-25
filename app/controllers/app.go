@@ -45,5 +45,4 @@ func init() {
 	for k, v := range templateFuncs {
 		revel.TemplateFuncs[k] = v
 	}
-
 }

@@ -1,0 +1,16 @@
+<div class="col-md-3" style="margin-bottom: 4%;">
+	<div class="user-sidebar">
+    <div class="user-side-menu text-left">
+      <ul class="nav">
+        {{range .docsMeta.Sections}}
+            <li class="user-side-menu-head">{{.Name}}</li>
+            {{range .Pages}}
+              <li>
+                <a href="#">{{.Title}}</a>
+              </li>
+            {{end}}
+        {{end}}
+      </ul>
+		</div> <!-- /.user-side-menu -->
+  </div>	<!-- /.user-sidebar -->
+</div>

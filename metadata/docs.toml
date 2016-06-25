@@ -1,0 +1,172 @@
+#
+# Revel Documentation Configuration and Metadata
+#
+# Alignment is done for readablity purpose, TOML doesn't need it
+#
+
+title = "Latest Documentation"
+
+# Github Documentation configs
+# to form a successful markdown file path, combine following
+# <basePath> + <branch-name> + <sections.pages.fileName>
+# branch-name =>
+#   latest is master
+#   previous version(s) are reference by tag-name
+# For e.g.:
+#     https://raw.githubusercontent.com/revel/docs/master/manual/appconf.md
+#     https://raw.githubusercontent.com/revel/docs/v0.13.0/manual/appconf.md
+#basePath = "https://raw.githubusercontent.com/revel/docs"
+basePath = "https://raw.githubusercontent.com/jeevatkm/tempdocs"
+
+# Supported versions for documentation display on the main site
+versions = ["v0.13.1", "v0.13.0"]
+
+# Overview Section
+[[sections]]
+  name = "Overview"
+
+  [[sections.pages]]
+    title = "Introduction"
+    path = "intro"
+    fileName = "intro.md"
+
+  [[sections.pages]]
+    title = "Concepts"
+    path = "concepts"
+    fileName = "concepts.md"
+
+  [[sections.pages]]
+    title = "Organization"
+    path = "organization"
+    fileName = "organization.md"
+
+# Topics Section
+[[sections]]
+  name = "Topics"
+
+  [[sections.pages]]
+    title = "Controllers"
+    path = "controllers"
+    fileName = "controllers.md"
+
+  [[sections.pages]]
+    title = "URL Routing"
+    path = "routing"
+    fileName = "routing.md"
+
+  [[sections.pages]]
+    title = "Request Parameters"
+    path = "parameters"
+    fileName = "parameters.md"
+
+  [[sections.pages]]
+    title = "Validation"
+    path = "validation"
+    fileName = "validation.md"
+
+  [[sections.pages]]
+    title = "Session & Flash"
+    path = "session-flash"
+    fileName = "session-flash.md"
+
+  [[sections.pages]]
+    title = "Results & Response"
+    path = "results"
+    fileName = "results.md"
+
+  [[sections.pages]]
+    title = "Templates"
+    path = "templates"
+    fileName = "templates.md"
+
+  [[sections.pages]]
+    title = "Interceptors"
+    path = "interceptors"
+    fileName = "interceptors.md"
+
+  [[sections.pages]]
+    title = "Filters"
+    path = "filters"
+    fileName = "filters.md"
+
+  [[sections.pages]]
+    title = "Websockets"
+    path = "websockets"
+    fileName = "websockets.md"
+
+  [[sections.pages]]
+    title = "Internationalization"
+    path = "i18n-messages"
+    fileName = "i18n-messages.md"
+
+  [[sections.pages]]
+    title = "Cache"
+    path = "cache"
+    fileName = "cache.md"
+
+  [[sections.pages]]
+    title = "Database"
+    path = "database"
+    fileName = "database.md"
+
+  [[sections.pages]]
+    title = "Debugging"
+    path = "debugging"
+    fileName = "debugging.md"
+
+# Modules Section
+[[sections]]
+  name = "Modules"
+
+  [[sections.pages]]
+    title = "Modules Overview"
+    path = "modules"
+    fileName = "modules.md"
+
+  [[sections.pages]]
+    title = "Testing"
+    path = "testing"
+    fileName = "testing.md"
+
+  [[sections.pages]]
+    title = "Jobs"
+    path = "jobs"
+    fileName = "jobs.md"
+
+# Operational Section
+[[sections]]
+  name = "Operational"
+
+  [[sections.pages]]
+    title = "Versions"
+    path = "versions"
+    fileName = "versions.md"
+
+  [[sections.pages]]
+    title = "Logging"
+    path = "logging"
+    fileName = "logging.md"
+
+  [[sections.pages]]
+    title = "Deployment"
+    path = "deployment"
+    fileName = "deployment.md"
+
+# Reference Section
+[[sections]]
+  name = "Reference"
+
+  [[sections.pages]]
+    title = "app.conf"
+    path = "appconf"
+    fileName = "appconf.md"
+
+  [[sections.pages]]
+    title = "revel shell tool"
+    path = "tool"
+    fileName = "tool.md"
+
+  [[sections.pages]]
+    title = "FAQ"
+    path = "faq"
+    fileName = "faq.md"

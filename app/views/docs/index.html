@@ -1,10 +1,16 @@
-{{set . "title" "Documentation - Revel Framework"}}
+{{set . "title" .docsMeta.Title}}
 {{template "header.html" .}}
 
-<div class="container">
-  <div class="row">
-    <h2>Documentation</h2>
-  </div>
-</div>
+<div class="container page-container" style="margin-top:2%">
+	<div class="row">
+
+		{{template "docs/sidebar.html" .}}
+
+		<div class="col-md-9">
+      <h1>Documetation</h1>
+
+    </div> <!-- /.col-md-9 -->
+</div> <!-- ./row -->
+</div> <!-- ./container -->
 
 {{template "footer.html" .}}
