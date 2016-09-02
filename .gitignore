@@ -2,3 +2,7 @@ test-results/
 tmp/
 routes/
 
+## Intellij and pycharm stuff
+.idea/
+*.iml
+
