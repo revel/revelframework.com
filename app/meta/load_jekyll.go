@@ -33,19 +33,15 @@ func LoadMetaData() {
 
 	fmt.Printf("docs_root: %#v", DocsRootPath)
 
-	var dirs = []string{"tutorial", "manual", "modules", "examples", "quickref"}
+
 
 	Site.Sections = make(map[string]*Section)
-	for _, r := range dirs {
+	for _, r := range Sections {
 		fmt.Println("docs_root:", DocsRootPath + "/_layouts/" + r + ".html")
 		Site.Sections[r] = ReadJekyllLayout(r)
 	}
 
-	//var jek JekyllConf
-	//if err := yaml.Unmarshal(yamlFile, &jek); err != nil {
-	//	revel.ERROR.Fatalln("Yaml decode error:", err)
-	//}
-	//fmt.Printf("Values: %#v", Docs)
+
 }
 
 func ReadJekyllLayout(section string) *Section{

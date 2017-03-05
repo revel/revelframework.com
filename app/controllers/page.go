@@ -2,17 +2,10 @@ package controllers
 
 import (
 	"fmt"
-	//"os/exec"
-	//"bufio"
-	//"//io/ioutil"
-	"html/template"
-	//"path/filepath"
-	//"strings"
+
 
 	"github.com/revel/revel"
-	//"github.com/russross/blackfriday"
-	//"gopkg.in/yaml.v2"
-	//"github.com/pksunkara/pygments"
+
 	"github.com/revel/revelframework.com/app/meta"
 )
 
@@ -44,69 +37,49 @@ func (c Page) Debug(section, page string) revel.Result {
 
 
 
-type CurrPage struct {
-	//Title string
-	Version string
-	Section string
-	SectionTitle string
-	Page string
-	Title string
-	Path string
-	Lang string
-	ContentSS template.HTML
-	Content string
-}
-
-//var Site *SiteStruct
-
-//func GetCurrPage(section, section_title, version, lang, page string) CurrPage {
-//
-//	s := CurrPage{Section: section,  PageUrl: page, Version: version, Lang: lang}
-//	return s
-//}
-
-
 // render an expected markdown file
-func (c Page) Page(section, page string) revel.Result {
-	fmt.Println("PAGE==", section, page)
+func (c Page) Page() revel.Result {
 
-	//cp := CurrPage{Section: section, Page: page, Title: "Title", Path: "PATHH", Content: "CYIPEeeeeeeeeeeeeONTENT"}
 	c.RenderArgs["Site"] = meta.Site
-	c.RenderArgs["Section"] = meta.Site.Sections[section]
+
+	// Create a temporary PageData
+	tdata := meta.PageData{Title: "## Unknown ##"}
+
+	// get the section and page from oute
+	tdata.Section = c.Params.Route.Get("section")
+	tdata.Page = c.Params.Route.Get("page")
+
+	// Validate section by checking is exsts in site
+	sec , ok := meta.Site.Sections[tdata.Section]
+	if !ok {
+		tdata.Title = "404 Not Found"
+		c.RenderArgs["Page"] = tdata
+		return c.NotFound("missing secton")
+	}
+	c.RenderArgs["Section"] = sec
+
+	// no page so set to default
+	if tdata.Page == "" {
+		tdata.Page = "index"
+
+	} else {
+		//validate page
+		if !sec.HasPage(tdata.Page){
+			return c.NotFound("missing page")
+		}
+	}
 
 
 	//c.RenderArgs["Page"] = cp
 
 
-	pdata := meta.ReadMarkDownPage(section, page)
+	pdata := meta.ReadMarkDownPage(tdata.Section, tdata.Page)
 	c.RenderArgs["Page"] = pdata
 	if pdata.Error != nil {
 		fmt.Println("error==", pdata.Error)
 	}
 	fmt.Println("error==", pdata.Title)
-	/*
-	c.RenderArgs["cPage"] = cPage
 
-
-	cPage := GetCurrPage(site_section, "Manual", ver, lang, page)
-
-	nav := GetNav(site_section)
-	c.RenderArgs["nav"] = nav
-
-
-	page_no_ext := page
-	if filepath.Ext(page) == ".html" { // wtf includes the .
-		page_no_ext = page[0: len(page) - 5]
-	}
-
-	// use template.HTML to "unescape" encoding.. ie proper html not &lt;escaped
-	pdata := ReadMarkdownPage(site_section, page_no_ext)
-	c.RenderArgs["page_content"] = pdata.HTML
-	cPage.PageTitle = pdata.Title
-
-
-	c.RenderArgs["cPage"] = cPage
-	*/
 	return c.Render()
 
 }

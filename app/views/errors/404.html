@@ -1,5 +1,4 @@
-{{set . "title" "Oops... - Revel Framework"}}
-{{template "header.html" .}}
+{{template "_base.html" .}}
 
 {{if eq .RunMode "dev"}}
 {{template "errors/404-dev.html" .}}
@@ -11,4 +10,3 @@
 </div>
 {{end}}
 
-{{template "footer.html" .}}

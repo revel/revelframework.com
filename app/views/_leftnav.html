@@ -1,3 +1,4 @@
+{{if .Section }}
 <div class="leftnav">
     <ul class="nav">
         {{range $sec := .Section.PageSections }}
@@ -10,3 +11,4 @@
         {{end}}
     </ul>
 </div>
+{{end}}
