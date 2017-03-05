@@ -17,27 +17,6 @@ import (
 )
 
 
-type CurrPage struct {
-	//Title string
-	Version string
-	SectionUrl string
-	SectionTitle string
-	PageUrl string
-	PageTitle string
-	//Version string
-	Lang string
-	Content template.HTML
-}
-
-//var Site *SiteStruct
-
-func GetCurrPage(section, section_title, version, lang, page string) CurrPage {
-
-	s := CurrPage{SectionUrl: section, SectionTitle: section_title, PageUrl: page, Version: version, Lang: lang}
-	return s
-}
-
-
 
 type Page struct {
 	*revel.Controller
@@ -64,10 +43,40 @@ func (c Page) Debug(section, page string) revel.Result {
 }
 
 
+
+type CurrPage struct {
+	//Title string
+	Version string
+	Section string
+	SectionTitle string
+	Page string
+	Title string
+	Path string
+	Lang string
+	ContentSS template.HTML
+	Content string
+}
+
+//var Site *SiteStruct
+
+//func GetCurrPage(section, section_title, version, lang, page string) CurrPage {
+//
+//	s := CurrPage{Section: section,  PageUrl: page, Version: version, Lang: lang}
+//	return s
+//}
+
+
 // render an expected markdown file
 func (c Page) Page(section, page string) revel.Result {
 
+	//var err error
+	cp := CurrPage{Section: section, Page: page, Title: "Title", Path: "PATHH", Content: "CYIPEeeeeeeeeeeeeONTENT"}
 	c.RenderArgs["Site"] = meta.Site
+	c.RenderArgs["Section"] = meta.Site.Sections[section]
+
+
+	c.RenderArgs["Page"] = cp
+
 	/*
 	c.RenderArgs["cPage"] = cPage
 

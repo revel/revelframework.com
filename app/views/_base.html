@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{.Site.Title}}</title>
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+
+    <link href="/public/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/public/css/jekyll-github.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/public/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+    <link href="/public/css/revel.17.css" rel="stylesheet">
+</head>
+
+<body>
+
+{{template "_topnav.html" .}}
+
+<div class="container revel-{{.Page.Section}}">
+    <div class="row">
+        <div class="col-md-3">
+            {% include leftnav.html %}
+        </div>
+
+        <div class="col-md-9">
+            <div class="page-header">
+                <a href="https://github.com/revel/revel.github.io/edit/develop/{{ .Page.Path }}" class="improve-page btn dbtn-info" target="_blank"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Improve Page</a>
+                <h1>{{ .Page.Title }}</h1>
+            </div>
+            <div class="main">
+                {{ .Page.Content }}
+                {% include godoc_links.html %}
+                {% include github_links.html %}
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Revel Team 2017 - Revel is released under the <a href="https://github.com/revel/revel/blob/master/LICENSE">MIT License</a></p>
+    </footer>
+</div>
+</body>
+</html>
