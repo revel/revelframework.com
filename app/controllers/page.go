@@ -13,6 +13,7 @@ import (
 	//"github.com/russross/blackfriday"
 	//"gopkg.in/yaml.v2"
 	//"github.com/pksunkara/pygments"
+	"github.com/revel/revelframework.com/app/meta"
 )
 
 
@@ -58,11 +59,15 @@ func (c Page) RobotsTxt() revel.Result {
 func (c Page) Index() revel.Result {
 	return c.Render()
 }
-
+func (c Page) Debug(section, page string) revel.Result {
+	return c.RenderJson(meta.Site)
+}
 
 
 // render an expected markdown file
-func (c Page) Page(site_section, ver, lang, page string) revel.Result {
+func (c Page) Page(section, page string) revel.Result {
+
+	c.RenderArgs["Site"] = meta.Site
 	/*
 	c.RenderArgs["cPage"] = cPage
 
@@ -87,4 +92,5 @@ func (c Page) Page(site_section, ver, lang, page string) revel.Result {
 	c.RenderArgs["cPage"] = cPage
 	*/
 	return c.Render()
+
 }

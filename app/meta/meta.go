@@ -3,12 +3,13 @@ package meta
 import (
 	"fmt"
 	"path/filepath"
-	//"io/ioutil"
+	"io/ioutil"
+	"strings"
 
-	//"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 
 	"github.com/revel/revel"
-	"github.com/revel/revelframework.com/app/models"
+
 )
 
 /*
@@ -19,39 +20,71 @@ the "section menus" are in _layouts/*.html as front matter
 each page has frontmatter
  */
 
-var Sections map[string]Section
+//var Sections map[string]Section
 
 var (
-	// Path is base path location of metadata files
-	Path string
-
-	// Docs is documentation meta configuration values
-	Docs models.Docs
+	// DocsRootPath is base path location of revel.github.io www checkout
+	DocsRootPath string
 )
-
-type JekyllConf struct {
-	Sections []string ` yaml:"section" `
-}
 
 // LoadMetaData parses and loads metadata
 func LoadMetaData() {
 
-	docs_root := filepath.Join(revel.BasePath, "../revel.github.io")
-	fmt.Printf("docs_root: %#v", docs_root)
-	var sections = []string{"tutorial"}
 
-	for _, r := range sections {
-		fmt.Printf("docs_root: %#v", docs_root + "/_layouts/" + r + ".html")
+	fmt.Printf("docs_root: %#v", DocsRootPath)
+
+	var dirs = []string{"tutorial", "manual"}
+
+	Site.Sections = make(map[string]Section)
+	for _, r := range dirs {
+		fmt.Println("docs_root:", DocsRootPath + "/_layouts/" + r + ".html")
+		Site.Sections[r] = ReadJekyllLayout(r)
 	}
+
 	//var jek JekyllConf
 	//if err := yaml.Unmarshal(yamlFile, &jek); err != nil {
 	//	revel.ERROR.Fatalln("Yaml decode error:", err)
 	//}
-	fmt.Printf("Values: %#v", Docs)
+	//fmt.Printf("Values: %#v", Docs)
+}
+
+func ReadJekyllLayout(section string) Section{
+	// menu is in frontmatter of _layouts/SECTION.html
+	// eg https://github.com/revel/revel.github.io/blob/master/_layouts/tutorial.html
+	lay_file := DocsRootPath + "/_layouts/" + section + ".html"
+
+	// read file
+	contents, err := ioutil.ReadFile(lay_file)
+	if err != nil {
+		revel.ERROR.Fatalln("Yaml decode error:", err)
+	}
+	// convert to string and split into lines
+	lines := strings.Split(string(contents), "\n")
+	front_matter := ""
+	for idx, line := range lines {
+
+		if idx == 0 {
+			continue
+		}
+		if line == "---" {
+			break
+		}
+		front_matter += line + "\n"
+	}
+
+	var sec Section
+	err = yaml.Unmarshal([]byte(front_matter), &sec)
+	if err != nil {
+		fmt.Println("error, yaml", err)
+	}
+	//fmt.Println(front_matter, sec)
+	return sec
 }
 
 func init() {
-	Path = filepath.Join(revel.BasePath, "metadata")
-
+	DocsRootPath = filepath.Join(revel.BasePath, "..", "revel.github.io")
+	Site = new(SiteStruct)
+	Site.Title = "Revel Framework"
+	Site.Sections = make(map[string]Section)
 	revel.OnAppStart(LoadMetaData)
 }
