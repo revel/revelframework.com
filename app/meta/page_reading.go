@@ -26,8 +26,8 @@ type GitHub struct {
 type FrontMatter struct {
 	Title string ` yaml:"title" `
 	Layout string ` yaml:"layout" ` // not used see section
-	GitHub GitHub ` yaml:"github" `
-	GoDoc []string ` yaml:"godoc" `
+	Github GitHub ` yaml:"github" `
+	Godoc []string ` yaml:"godoc" `
 }
 
 type PageData struct {
@@ -36,8 +36,8 @@ type PageData struct {
 	Path string
 	Title string
 	Content template.HTML
-	GitHub GitHub
-	GoDoc []string
+	Github GitHub
+	Godoc []string
 	Error error
 	FilePath string
 }
@@ -139,8 +139,8 @@ func ReadMarkDownPage( section, page string) PageData {
 		fmt.Println("error md", err)
 	}
 	pdata.Title = fm.Title
-	pdata.GitHub = fm.GitHub
-	pdata.GoDoc = fm.GoDoc
+	pdata.Github = fm.Github
+	pdata.Godoc = fm.Godoc
 
 	//fmt.Println("===", pdata)
 

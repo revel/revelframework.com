@@ -1,0 +1,13 @@
+{{ if .Page.Godoc }}
+<div class="revel-godoc-bar">
+  <h6>GoDoc Reference</h6>
+  <ul>
+    <li>
+      {{range $i, $lbl := .Page.Godoc }}
+      <a href="https://godoc.org/github.com/revel/revel#{{$lbl}}" target="_revel_godoc">{{$lbl}}</a>{{ if $i }},{{ end }}
+      {{end}}}
+    </li>
+  </ul>
+</div>
+{{ end }}
+

@@ -37,8 +37,8 @@
             </div>
             <div class="main">
                 {{ .Page.Content }}
-                {% include godoc_links.html %}
-                {% include github_links.html %}
+                {{template "godoc_links.html" .}}
+                {{template "github_links.html" .}}
             </div>
         </div>
     </div>
