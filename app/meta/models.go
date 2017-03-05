@@ -21,7 +21,7 @@ type PageSection struct {
 }
 
 type Page struct {
-	Title  string		` yaml:"name" json:"title" `
-	RawUrl string			` yaml:"url" `
+	Title  string		` yaml:"title" json:"title" `
+	Url string			` yaml:"url" `
 }
 

@@ -5,13 +5,21 @@
 module:testrunner
 
 GET     /                                       Home.Index
-GET     /:section/:page                         Page.Page
+
 
 # favicon
 GET     /favicon.png                            Static.Serve("public","img/favicon.png")
+GET     /favicon.ico                            Static.Serve("public","img/favicon.ico")
+GET     /img/favicon.png                            Static.Serve("public","img/favicon.png")
+GET     /img/favicon.ico                            Static.Serve("public","img/favicon.ico")
+
+
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
+
+GET     /:section/:page                         Page.Page
+GET     /:section/:page.html                    Page.Page
 
 # Catch all
 #*       /:controller/:action                    :controller.:action

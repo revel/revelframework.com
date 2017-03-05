@@ -1,0 +1,12 @@
+<div class="leftnav">
+    <ul class="nav">
+        {{range $sec := .Section.PageSections }}
+            <li class="nav-header">{{$sec.Title }}</li>
+            {{range $p := $sec.Pages }}
+
+                <li><a href="{{$p.Url}}">{{$p.Title}}</a></li>
+
+            {{end}}
+        {{end}}
+    </ul>
+</div>

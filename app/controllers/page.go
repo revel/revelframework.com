@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	//"fmt"
+	"fmt"
 	//"os/exec"
 	//"bufio"
 	//"//io/ioutil"
@@ -68,15 +68,22 @@ type CurrPage struct {
 
 // render an expected markdown file
 func (c Page) Page(section, page string) revel.Result {
+	fmt.Println("PAGE==", section, page)
 
-	//var err error
-	cp := CurrPage{Section: section, Page: page, Title: "Title", Path: "PATHH", Content: "CYIPEeeeeeeeeeeeeONTENT"}
+	//cp := CurrPage{Section: section, Page: page, Title: "Title", Path: "PATHH", Content: "CYIPEeeeeeeeeeeeeONTENT"}
 	c.RenderArgs["Site"] = meta.Site
 	c.RenderArgs["Section"] = meta.Site.Sections[section]
 
 
-	c.RenderArgs["Page"] = cp
+	//c.RenderArgs["Page"] = cp
 
+
+	pdata := meta.ReadMarkDownPage(section, page)
+	c.RenderArgs["Page"] = pdata
+	if pdata.Error != nil {
+		fmt.Println("error==", pdata.Error)
+	}
+	fmt.Println("error==", pdata.Title)
 	/*
 	c.RenderArgs["cPage"] = cPage
 
