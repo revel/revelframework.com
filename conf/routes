@@ -5,10 +5,11 @@
 module:testrunner
 
 GET     /                                       Home.Index
-GET     /quickstart                             QuickStart.Index
-GET     /docs/latest                            Docs.Index
-GET     /docs                                   Docs.Index
-GET     /samples                                Samples.Index
+#GET     /quickstart                             QuickStart.Index
+#GET     /docs/latest                            Docs.Index
+#GET     /docs                                   Docs.Index
+#GET     /samples                                Samples.Index
+GET     /:section/:page                         Page.Page
 
 # favicon
 GET     /favicon.png                            Static.Serve("public","img/favicon.png")
