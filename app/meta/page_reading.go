@@ -27,7 +27,7 @@ type FrontMatter struct {
 	Title string ` yaml:"title" `
 	Layout string ` yaml:"layout" ` // not used see section
 	GitHub GitHub ` yaml:"github" `
-	GoDoc string ` yaml:"godoc" `
+	GoDoc []string ` yaml:"godoc" `
 }
 
 type PageData struct {
@@ -54,7 +54,7 @@ type PageData struct {
 //
 func ReadMarkDownPage( section, page string) PageData {
 
-	pdata := PageData{Section: section, Page: page}
+	pdata := PageData{Section: section, Page: page, Title: "- no title -"}
 
 	pdata.FilePath = DocsRootPath + "/" + pdata.Section + "/" + pdata.Page + ".md"
 	fmt.Println("FILE2pead", pdata.FilePath)
@@ -138,8 +138,11 @@ func ReadMarkDownPage( section, page string) PageData {
 	if err != nil {
 		fmt.Println("error md", err)
 	}
+	pdata.Title = fm.Title
+	pdata.GitHub = fm.GitHub
+	pdata.GoDoc = fm.GoDoc
 
-	fmt.Println("===", pdata)
+	//fmt.Println("===", pdata)
 
 	// convert markdown
 	extensions := 0
@@ -162,7 +165,7 @@ func ReadMarkDownPage( section, page string) PageData {
 
 	pdata.Content = template.HTML(output)
 
-	fmt.Println("yamiii", output)
+	//fmt.Println("yamiii", output)
 
 	return pdata
 

@@ -33,9 +33,9 @@ func LoadMetaData() {
 
 	fmt.Printf("docs_root: %#v", DocsRootPath)
 
-	var dirs = []string{"tutorial", "manual"}
+	var dirs = []string{"tutorial", "manual", "modules", "examples", "quickref"}
 
-	Site.Sections = make(map[string]Section)
+	Site.Sections = make(map[string]*Section)
 	for _, r := range dirs {
 		fmt.Println("docs_root:", DocsRootPath + "/_layouts/" + r + ".html")
 		Site.Sections[r] = ReadJekyllLayout(r)
@@ -48,7 +48,7 @@ func LoadMetaData() {
 	//fmt.Printf("Values: %#v", Docs)
 }
 
-func ReadJekyllLayout(section string) Section{
+func ReadJekyllLayout(section string) *Section{
 	// menu is in frontmatter of _layouts/SECTION.html
 	// eg https://github.com/revel/revel.github.io/blob/master/_layouts/tutorial.html
 	lay_file := DocsRootPath + "/_layouts/" + section + ".html"
@@ -72,12 +72,26 @@ func ReadJekyllLayout(section string) Section{
 		front_matter += line + "\n"
 	}
 
-	var sec Section
-	err = yaml.Unmarshal([]byte(front_matter), &sec)
+	sec := new(Section)
+	err = yaml.Unmarshal([]byte(front_matter), sec)
 	if err != nil {
 		fmt.Println("error, yaml", err)
 	}
 	//fmt.Println(front_matter, sec)
+	// NOW cleanup the urls
+	for _, psec := range sec.PageSections {
+		for _, page := range psec.Pages {
+			p := page.RawUrl
+			if strings.HasSuffix(p, ".html") {
+				p = p[0:len(p)-5]
+			} else if strings.HasSuffix(p, ".md") {
+				p = p[0:len(p)-3]
+			}
+			page.Url = "/" + section + "/" + p
+		}
+	}
+
+
 	return sec
 }
 
@@ -85,6 +99,6 @@ func init() {
 	DocsRootPath = filepath.Join(revel.BasePath, "..", "revel.github.io")
 	Site = new(SiteStruct)
 	Site.Title = "Revel Framework"
-	Site.Sections = make(map[string]Section)
+	Site.Sections = make(map[string]*Section)
 	revel.OnAppStart(LoadMetaData)
 }
