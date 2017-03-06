@@ -1,10 +1,11 @@
-package meta
+package site
 
 import (
 	"bufio"
 	"fmt"
 	"os"
 	"os/exec"
+	"errors"
 
 	//"//io/ioutil"
 	"html/template"
@@ -19,6 +20,23 @@ import (
 	//"github.com/revel/revel"//
 )
 
+const (
+	YAML_DELIM = "---"
+)
+/* Example front matter
+---
+title: Controllers Overview
+layout: manual
+github:
+  labels:
+    - topic-controller
+godoc:
+    - Controller
+    - Request
+    - Response
+---
+markdown starts here
+ */
 type GitHub struct {
 	Labels []string
 }
@@ -38,11 +56,43 @@ type PageData struct {
 	Content template.HTML
 	Github GitHub
 	Godoc []string
-	Error error
 	FilePath string
+	Error error
 }
 
+// Loads a markdown page from repos,
+// set PageData.Error message is f*up
+func LoadPage(section, page string) *PageData {
+	pdata := new(PageData)
 
+	// process section = dir
+	pdata.Section = CleanStr(section)
+	// todo sanitize
+	_, ok := Site.Sections[section]
+	if !ok {
+		pdata.Error = errors.New("Section not found")
+		return pdata
+	}
+
+	// process page = /section/somefile
+	// but incoming might be page.html or page.md line
+	// also if blank then its index
+	pdata.Page = StripExt( CleanStr(page) )
+	if pdata.Page == "" {
+		pdata.Page = "index"
+	}
+	pdata.Path = "/" + pdata.Section + "/" + pdata.Page
+
+	// derive the markdown file path
+	pdata.FilePath = DocsRootPath + pdata.Path + ".md"
+	if _, err := os.Stat(pdata.FilePath); err != nil {
+		pdata.Error = err
+		return pdata
+	}
+	ReadMarkDownPage(pdata)
+
+	return pdata
+}
 
 // A markdown file has some yaml "frontmatter" at the top  which contains
 // title, so this scans line by line.. (TODO jekyll tag replace)
@@ -52,12 +102,8 @@ type PageData struct {
 //     ---
 // TODO , this is real slow and needs a regex expert
 //
-func ReadMarkDownPage( section, page string) PageData {
+func ReadMarkDownPage( pdata *PageData) *PageData {
 
-	pdata := PageData{Section: section, Page: page, Title: "- no title -"}
-
-	pdata.FilePath = DocsRootPath + "/" + pdata.Section + "/" + pdata.Page + ".md"
-	fmt.Println("FILE2pead", pdata.FilePath)
 	file, err := os.Open(pdata.FilePath)
 	if err != nil {
 		pdata.Error = err
@@ -65,7 +111,8 @@ func ReadMarkDownPage( section, page string) PageData {
 	}
 	defer file.Close()
 
-	yaml_bounds := "---"
+	// SOMEONE please refactor this...
+	// can even remember why and when said pedro
 	yaml_str := ""
 	body_str := ""
 	found_yaml_start := false
@@ -76,7 +123,7 @@ func ReadMarkDownPage( section, page string) PageData {
 	scanner := bufio.NewScanner(file)
 	for  scanner.Scan() {
 		line := scanner.Text()
-		if line == yaml_bounds {
+		if line == YAML_DELIM {
 			if found_yaml_start == false {
 				in_yaml = true
 				found_yaml_start = true
